@@ -24,5 +24,5 @@ def assign_digits(num_file, length):
 # TODO: Use a bar plot to show the distribution
 # ---------------- MAIN ------------------
 length = get_length()
-assign_digits(read_file("pi.txt", length), length)
+assign_digits(read_file("e.txt", length), length)
 
