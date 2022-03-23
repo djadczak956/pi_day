@@ -15,20 +15,25 @@ def read_file(file_name, length):
 
 # Asks for how many digits of a number that you will analyze
 def get_length():
-    length = int(input("Enter how many digits you want to analyze (from 1 to 1 million): "))
+    length = int(input("Enter how many digits you want to analyze from pi and e (from 1 to 1 million): "))
     while length <= 0 or length > 1_000_000:
-        print("Invalid number. Please try again!")
+        print("Invalid number. Please try again (1 to 1 million)!")
         length = int(input("Enter how many digits you want to analyze (from 1 to 1 million): "))
     return length
 
-def assign_digits(num_file, length):
+def assign_digits(num_file, name, length):
     numbers = [0] * 10  # Create an array from index 0-9
     for digit in num_file:
         numbers[int(digit)] += 1
-    print(numbers)
+    print(name + ":")
+    for i in range(10):
+        print(str(i) + ": " + str(numbers[i]))
+    print()
 
+# TODO: Method to print out the numbers with the corresponding count 
 # TODO: Use a bar plot to compare the 2 irrational numbers
 # ---------------- MAIN ------------------
 intro()
 length = get_length()
-assign_digits(read_file("e.txt", length), length)
+assign_digits(read_file("pi.txt", length), "pi", length)
+assign_digits(read_file("e.txt", length), "e", length)
