@@ -30,7 +30,6 @@ def assign_digits(num_file, name, length):
         print(str(i) + ": " + str(numbers[i]))
     print()
 
-# TODO: Method to print out the numbers with the corresponding count 
 # TODO: Use a bar plot to compare the 2 irrational numbers
 # ---------------- MAIN ------------------
 intro()
