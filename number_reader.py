@@ -2,6 +2,7 @@
 # This program also plots the distribution of digits
 
 # Imports
+from venv import create
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -20,8 +21,8 @@ def read_file(file_name, length):
 # Asks for how many digits of a number that you will analyze
 def get_length():
     length = int(input("Enter how many digits you want to analyze from pi and e (from 1 to 1 million): "))
-    while length <= 0 or length > 1_000_000:
-        print("Invalid number. Please try again (1 to 1 million)!")
+    while length <= 1 or length > 1_000_000:
+        print("Invalid number. Please try again (2 to 1 million)!")
         length = int(input("Enter how many digits you want to analyze (from 1 to 1 million): "))
     return length
 
@@ -36,15 +37,28 @@ def assign_digits(num_file, name, length):
     return numbers
 
 # https://www.geeksforgeeks.org/bar-plot-in-matplotlib/
-def create_graph(pi_list, e_list):
-    width = 0.25
+def create_graph(pi_list, e_list, length):
+    bar_width = 0.2
     fig = plt.subplots(figsize=(12, 8))
-    ax = fig.add_axes([0, 0, 1, 1])
+    #ax = fig.add_axes([0, 0, 1, 1])
 
-    bar1 = np.arange(len(pi_list))  # The x shift to get multiple bars
-    bar2 = [i + width for i in bar1]    # Also x shift, for the second bar
+    # Positioning for the bars
+    bar1 = np.arange(len(pi_list))  # The x position of first bar
+    bar2 = [i + bar_width for i in bar1]    # Slightly shifted second bar
 
-    
+    # Making the bar plot
+    plt.bar(bar1, pi_list, color="r", width=bar_width, edgecolor="grey", label="pi")    
+    plt.bar(bar2, e_list, color="b", width=bar_width, edgecolor="grey", label="e")    
+
+    # Labeling / Xticks
+    plt.title("What is the distribution of digits in " + str(length) + " digits of pi and e?")
+    plt.xlabel("What digit?", fontweight="bold", fontsize=15)
+    plt.ylabel("How many of a digit?", fontweight="bold", fontsize=15)
+    plt.xticks([r + bar_width - 0.1 for r in range(len(pi_list))], [i for i in range(10)])
+
+    # Finish the graph
+    plt.legend()
+    plt.show()
 
 
 # TODO: Use a bar plot to compare the 2 irrational numbers
@@ -53,3 +67,4 @@ intro()
 length = get_length()
 pi = assign_digits(read_file("pi.txt", length), "pi", length)   # Prints and assigns pi digits
 e = assign_digits(read_file("e.txt", length), "e", length)      # Prints and assigns e digits
+create_graph(pi, e, length)
